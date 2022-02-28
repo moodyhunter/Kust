@@ -1,0 +1,31 @@
+name: Build Kernel
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+
+      - name: Build
+        run: cargo kbuild --verbose
+
+      - name: Run Check
+        run: cargo kcheck --verbose
+
+      - name: Build Clippy
+        run: cargo kclippy --verbose
+
+      - name: Generate Disk
+        run: cargo gendisk
