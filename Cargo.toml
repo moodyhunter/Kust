@@ -1,0 +1,21 @@
+[package]
+authors = ["Moody <mooodyhunter@outlook.com"]
+edition = "2021"
+name = "kust"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.dev]
+# disable stack unwinding on panic
+panic = "abort"
+
+[profile.release]
+# disable stack unwinding on panic
+panic = "abort"
+
+[dependencies]
+bootloader = "0.10.12"
+
+[workspace]
+members = ["boot"]
