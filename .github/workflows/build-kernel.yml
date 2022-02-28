@@ -18,6 +18,8 @@ jobs:
         with:
           submodules: "recursive"
 
+      - uses: Swatinem/rust-cache@v1
+
       - name: Build
         run: cargo kbuild --verbose
 
