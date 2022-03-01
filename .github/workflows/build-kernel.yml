@@ -1,17 +1,34 @@
-name: Build Kernel
+name: Check & Build Kernel
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+
+      - uses: Swatinem/rust-cache@v1
+
+      - name: Run Check
+        run: cargo kcheck --verbose
+
+      - name: Build Clippy
+        run: cargo kclippy --verbose
+
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [debug, release]
 
     steps:
       - uses: actions/checkout@v2
@@ -21,13 +38,10 @@ jobs:
       - uses: Swatinem/rust-cache@v1
 
       - name: Build
-        run: cargo kbuild --verbose
+        run: cargo kbuild_${{ matrix.build_type }} --verbose
 
-      - name: Run Check
-        run: cargo kcheck --verbose
+      - name: Generate Bootable Image
+        run: cargo genimage_${{ matrix.build_type }}
 
-      - name: Build Clippy
-        run: cargo kclippy --verbose
-
-      - name: Generate Disk
-        run: cargo gendisk
+      - name: Finish up
+        run: ls -lah --color=always ./bin/*
