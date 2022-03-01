@@ -1,6 +1,12 @@
 [alias]
-gendisk = """run --package boot"""
-kbuild = """build --target x86_64-kust.json -Z build-std=core -Z build-std-features=compiler-builtins-mem"""
+genimage = "genimage_debug"
+genimage_debug = """run --package image_gen -- debug"""
+genimage_release = """run --package image_gen -- release"""
+
+kbuild = "kbuild_debug"
+kbuild_debug = """build --target x86_64-kust.json -Z build-std=core -Z build-std-features=compiler-builtins-mem"""
+kbuild_release = """build --release --target x86_64-kust.json -Z build-std=core -Z build-std-features=compiler-builtins-mem"""
+
 kcheck = """check --target x86_64-kust.json -Z build-std=core -Z build-std-features=compiler-builtins-mem"""
 kclippy = """clippy --target x86_64-kust.json -Z build-std=core -Z build-std-features=compiler-builtins-mem"""
 kdoc = """doc --target x86_64-kust.json -Z build-std=core -Z build-std-features=compiler-builtins-mem"""

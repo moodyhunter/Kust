@@ -3,13 +3,6 @@
 version = 3
 
 [[package]]
-name = "boot"
-version = "0.1.0"
-dependencies = [
- "bootloader-locator",
-]
-
-[[package]]
 name = "bootloader"
 version = "0.10.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -22,6 +15,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aaaa9db3339d32c2622f2e5d0731eb82a468d3439797c9d4fe426744fe2bd551"
 dependencies = [
  "json",
+]
+
+[[package]]
+name = "image_gen"
+version = "0.1.0"
+dependencies = [
+ "bootloader-locator",
 ]
 
 [[package]]
