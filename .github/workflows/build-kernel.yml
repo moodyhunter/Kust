@@ -44,4 +44,10 @@ jobs:
         run: cargo genimage_${{ matrix.build_type }}
 
       - name: Finish up
-        run: ls -lah --color=always ./bin/*
+        run: ls -lah --color=always ./bin/${{ matrix.build_type }}/
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: kust-kernel-${{ matrix.build_type }}
+          path: ./bin/${{ matrix.build_type }}/
