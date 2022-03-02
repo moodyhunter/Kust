@@ -15,3 +15,6 @@ panic = "abort"
 
 [dependencies]
 bootloader = "0.10.12"
+conquer-once = {version = "0.3.2", default-features = false}
+log = "0.4.14"
+printk = "0.2.4"
